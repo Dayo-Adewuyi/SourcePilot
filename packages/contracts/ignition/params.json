@@ -1,0 +1,7 @@
+{
+  "SourcePilot": {
+    "usdc": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+    "admin": "0x4C3CB0eD1098b4848cB2590E7c7020958037F340",
+    "feeCollector": "0xA1a9E8c73Ecf86AE7F4858D5Cb72E689cDc9eb3e"
+  }
+}

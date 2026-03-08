@@ -1,7 +1,10 @@
 import hardhatToolboxMochaEthersPlugin from "@nomicfoundation/hardhat-toolbox-mocha-ethers";
-import { configVariable, defineConfig } from "hardhat/config";
+import { defineConfig } from "hardhat/config";
 import { fileURLToPath } from "url";
 import path from "path";
+import dotenv from "dotenv";
+
+dotenv.config({ path: path.join(path.dirname(fileURLToPath(import.meta.url)), "../.env") });
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -48,15 +51,15 @@ export default defineConfig({
     baseSepolia: {
       type: "http",
       chainType: "op",
-      url: configVariable("BASE_SEPOLIA_RPC_URL"),
-      accounts: [configVariable("DEPLOYER_PRIVATE_KEY")],
+      url: process.env.BASE_SEPOLIA_RPC_URL ?? "https://sepolia.base.org",
+      accounts: process.env.DEPLOYER_PRIVATE_KEY ? [process.env.DEPLOYER_PRIVATE_KEY] : [],
     },
     // Base Mainnet
     base: {
       type: "http",
       chainType: "op",
-      url: configVariable("BASE_MAINNET_RPC_URL"),
-      accounts: [configVariable("DEPLOYER_PRIVATE_KEY")],
+      url: process.env.BASE_MAINNET_RPC_URL ?? "https://mainnet.base.org",
+      accounts: process.env.DEPLOYER_PRIVATE_KEY ? [process.env.DEPLOYER_PRIVATE_KEY] : [],
     },
   },
 });

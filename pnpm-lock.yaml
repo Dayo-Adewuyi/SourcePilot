@@ -29,6 +29,9 @@ importers:
       '@nomicfoundation/ignition-core':
         specifier: ^3.0.9
         version: 3.0.9
+      dotenv:
+        specifier: ^16.0.0
+        version: 16.6.1
       hardhat:
         specifier: ^3.1.11
         version: 3.1.11
@@ -662,6 +665,10 @@ packages:
   diff@7.0.0:
     resolution: {integrity: sha512-PJWHUb1RFevKCwaFA9RlG5tCd+FO5iRh9A8HEtkmBH2Li03iJriB6m6JIN4rGz3K3JLawI7/veA1xzRKP6ISBw==}
     engines: {node: '>=0.3.1'}
+
+  dotenv@16.6.1:
+    resolution: {integrity: sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow==}
+    engines: {node: '>=12'}
 
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
@@ -1877,6 +1884,8 @@ snapshots:
   deep-extend@0.6.0: {}
 
   diff@7.0.0: {}
+
+  dotenv@16.6.1: {}
 
   eastasianwidth@0.2.0: {}
 
