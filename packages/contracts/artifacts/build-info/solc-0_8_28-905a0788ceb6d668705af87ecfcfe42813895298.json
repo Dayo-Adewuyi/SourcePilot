@@ -1,0 +1,40 @@
+{
+  "_format": "hh3-sol-build-info-1",
+  "id": "solc-0_8_28-905a0788ceb6d668705af87ecfcfe42813895298",
+  "solcVersion": "0.8.28",
+  "solcLongVersion": "0.8.28+commit.7893614a",
+  "userSourceNameMap": {
+    "src/contracts/interfaces/ISourcePilot.sol": "project/src/contracts/interfaces/ISourcePilot.sol"
+  },
+  "input": {
+    "language": "Solidity",
+    "settings": {
+      "evmVersion": "paris",
+      "optimizer": {
+        "enabled": true,
+        "runs": 500
+      },
+      "outputSelection": {
+        "*": {
+          "": [
+            "ast"
+          ],
+          "*": [
+            "abi",
+            "evm.bytecode",
+            "evm.deployedBytecode",
+            "evm.methodIdentifiers",
+            "metadata"
+          ]
+        }
+      },
+      "remappings": [],
+      "viaIR": false
+    },
+    "sources": {
+      "project/src/contracts/interfaces/ISourcePilot.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.24;\n\n/// @title ISourcePilot - Shared interfaces for the SourcePilot protocol\n/// @notice Defines common structs, events, and errors used across all contracts\n\n// ═══════════════════════════════════════════════════════════════\n// ENUMS\n// ═══════════════════════════════════════════════════════════════\n\nenum DealStatus {\n    None,           // 0 - Default / non-existent\n    Locked,         // 1 - Funds locked in escrow\n    Confirmed,      // 2 - Supplier confirmed order\n    Shipped,        // 3 - Shipment in transit\n    Delivered,      // 4 - Delivery confirmed\n    Completed,      // 5 - Escrow released, deal done\n    Disputed,       // 6 - Under dispute\n    Refunded,       // 7 - Buyer refunded\n    Cancelled       // 8 - Cancelled before shipment\n}\n\nenum DisputeStatus {\n    None,\n    Filed,\n    SupplierResponded,\n    Resolved,\n    Expired\n}\n\nenum DisputeOutcome {\n    None,\n    BuyerWins,\n    SupplierWins,\n    Split\n}\n\n// ═══════════════════════════════════════════════════════════════\n// STRUCTS\n// ═══════════════════════════════════════════════════════════════\n\nstruct Deal {\n    uint256 dealId;\n    uint256 agentId;\n    address buyer;\n    address supplier;\n    uint256 amount;            // USDC amount (6 decimals)\n    uint256 platformFee;       // Calculated fee\n    uint256 createdAt;\n    uint256 deliveryDeadline;\n    DealStatus status;\n    string metadataURI;        // IPFS URI for full deal details\n}\n\nstruct AgentConfig {\n    uint256 agentId;\n    address owner;\n    string[] productCategories;\n    uint256 minOrderSize;      // Minimum order in USDC (6 decimals)\n    uint256 maxOrderSize;      // Maximum order in USDC (6 decimals)\n    bool active;\n    uint256 createdAt;\n    uint256 totalDeals;\n    uint256 totalVolume;       // Cumulative USDC volume\n    uint256 successRate;       // Basis points (10000 = 100%)\n}\n\nstruct PriceEntry {\n    bytes32 productHash;       // keccak256 of normalized product identifier\n    uint256 unitPrice;         // Price per unit in USDC (6 decimals)\n    uint256 moq;               // Minimum order quantity\n    uint256 shippingCost;      // Estimated shipping in USDC\n    uint256 supplierScore;     // Composite score (0-10000 basis points)\n    uint256 timestamp;\n    string supplierRef;        // External supplier reference ID\n}\n\nstruct Dispute {\n    uint256 disputeId;\n    uint256 dealId;\n    address filedBy;\n    string reason;\n    uint256 filedAt;\n    uint256 supplierDeadline;  // 7 days from filing\n    DisputeStatus status;\n    DisputeOutcome outcome;\n    uint256 buyerRefundBps;    // Basis points of refund to buyer (0-10000)\n}\n\n// ═══════════════════════════════════════════════════════════════\n// INTERFACES\n// ═══════════════════════════════════════════════════════════════\n\ninterface IEscrowVault {\n    event DealCreated(uint256 indexed dealId, uint256 indexed agentId, address indexed buyer, address supplier, uint256 amount);\n    event DealConfirmed(uint256 indexed dealId);\n    event DealShipped(uint256 indexed dealId);\n    event DealDelivered(uint256 indexed dealId);\n    event EscrowReleased(uint256 indexed dealId, address supplier, uint256 supplierAmount, uint256 feeAmount);\n    event DealRefunded(uint256 indexed dealId, address buyer, uint256 amount);\n    event DealCancelled(uint256 indexed dealId);\n    event DealDisputed(uint256 indexed dealId);\n    event ExpressSettlement(uint256 indexed dealId, uint256 premiumPaid);\n\n    error DealNotFound(uint256 dealId);\n    error InvalidDealStatus(uint256 dealId, DealStatus current, DealStatus expected);\n    error InsufficientAllowance(uint256 required, uint256 actual);\n    error ZeroAddress();\n    error ZeroAmount();\n    error DeadlineInPast();\n    error OnlyBuyer(uint256 dealId);\n    error OnlyWorkflow();\n    error DealExpired(uint256 dealId);\n}\n\ninterface IAgentRegistry {\n    event AgentCreated(uint256 indexed agentId, address indexed owner);\n    event AgentUpdated(uint256 indexed agentId);\n    event AgentDeactivated(uint256 indexed agentId);\n    event AgentReactivated(uint256 indexed agentId);\n    event AgentStatsUpdated(uint256 indexed agentId, uint256 totalDeals, uint256 totalVolume, uint256 successRate);\n\n    error AgentNotFound(uint256 agentId);\n    error NotAgentOwner(uint256 agentId, address caller);\n    error AgentInactive(uint256 agentId);\n    error MaxAgentsReached(address owner, uint256 max);\n    error InvalidOrderRange();\n}\n\ninterface IPriceOracle {\n    event PriceUpdated(bytes32 indexed productHash, uint256 unitPrice, uint256 supplierScore, uint256 timestamp);\n    event PriceBatchUpdated(bytes32[] productHashes, uint256 timestamp);\n\n    error StalePrice(bytes32 productHash, uint256 lastUpdate);\n    error EmptyBatch();\n}\n\ninterface IDisputeResolver {\n    event DisputeFiled(uint256 indexed disputeId, uint256 indexed dealId, address indexed filedBy);\n    event SupplierResponded(uint256 indexed disputeId, string response);\n    event DisputeResolved(uint256 indexed disputeId, DisputeOutcome outcome, uint256 buyerRefundBps);\n    event DisputeExpired(uint256 indexed disputeId);\n    event DisputeFeeRefunded(uint256 indexed disputeId, address to);\n\n    error DisputeNotFound(uint256 disputeId);\n    error DisputeAlreadyExists(uint256 dealId);\n    error NotDisputeParty(uint256 disputeId);\n    error InvalidDisputeStatus(uint256 disputeId, DisputeStatus current);\n    error SupplierDeadlineNotReached(uint256 disputeId);\n    error InvalidRefundBps();\n}\n\ninterface IPurchaseOrder {\n    event PurchaseOrderMinted(uint256 indexed tokenId, uint256 indexed dealId, address indexed buyer);\n    event PurchaseOrderStatusUpdated(uint256 indexed tokenId, DealStatus status);\n\n    error OnlyEscrow();\n    error TokenNotFound(uint256 tokenId);\n}\n"
+      }
+    }
+  }
+}

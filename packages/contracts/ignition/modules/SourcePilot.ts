@@ -8,8 +8,8 @@ import { buildModule } from "@nomicfoundation/ignition-core";
 const SourcePilotModule = buildModule("SourcePilot", (m) => {
   // ── Parameters ──
   const usdc = m.getParameter("usdc", "0x036CbD53842c5426634e7929541eC2318f3dCF7e"); // Default: Base Sepolia
-  const admin = m.getParameter("admin");
-  const feeCollector = m.getParameter("feeCollector");
+  const admin = m.getParameter("admin", "0xA1a9E8c73Ecf86AE7F4858D5Cb72E689cDc9eb3e");
+  const feeCollector = m.getParameter("feeCollector", "0xA1a9E8c73Ecf86AE7F4858D5Cb72E689cDc9eb3e");
 
   // ══════════════════════════════════════════
   // 1. Deploy PriceOracle (no dependencies)
