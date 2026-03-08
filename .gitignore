@@ -1,0 +1,22 @@
+# Node
+node_modules/
+.pnpm-store/
+.pnpm-debug.log
+
+# Build outputs
+.next/
+dist/
+build/
+out/
+coverage/
+
+# Logs
+logs/
+*.log
+
+# Env
+.env
+.env.*
+
+# OS
+.DS_Store

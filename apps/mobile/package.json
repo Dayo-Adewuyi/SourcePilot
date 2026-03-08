@@ -1,0 +1,12 @@
+{
+  "name": "@sourcepilot/mobile",
+  "private": true,
+  "scripts": {
+    "dev": "expo start",
+    "build": "expo export",
+    "lint": "eslint .",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

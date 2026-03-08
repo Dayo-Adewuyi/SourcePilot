@@ -1,0 +1,7 @@
+{
+  "name": "@sourcepilot/config",
+  "private": true,
+  "scripts": {
+    "build": "echo 'config package'"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [
+    "package.json",
+    "pnpm-workspace.yaml",
+    "turbo.json"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [
+        "dist/**",
+        ".next/**",
+        "build/**",
+        "out/**"
+      ]
+    },
+    "dev": {
+      "cache": false
+    },
+    "lint": {
+      "outputs": []
+    },
+    "test": {
+      "outputs": ["coverage/**"]
+    },
+    "typecheck": {
+      "outputs": []
+    }
+  }
+}
