@@ -1,0 +1,17 @@
+{
+  "name": "@sourcepilot/contracts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "compile": "hardhat compile --config src/hardhat.config.ts",
+    "test": "hardhat test --config src/hardhat.config.ts",
+    "deploy:local": "hardhat ignition deploy src/ignition/modules/SourcePilot.ts --network hardhatLocal --config src/hardhat.config.ts",
+    "deploy:testnet": "hardhat ignition deploy src/ignition/modules/SourcePilot.ts --network baseSepolia --config src/hardhat.config.ts --parameters src/ignition/params.json",
+    "deploy:mainnet": "hardhat ignition deploy src/ignition/modules/SourcePilot.ts --network base --config src/hardhat.config.ts --parameters src/ignition/params.json --verify"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox-mocha-ethers": "^3.0.3",
+    "hardhat": "^3.1.11"
+  }
+}
