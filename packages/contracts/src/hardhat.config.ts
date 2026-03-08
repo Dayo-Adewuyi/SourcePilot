@@ -1,8 +1,17 @@
 import hardhatToolboxMochaEthersPlugin from "@nomicfoundation/hardhat-toolbox-mocha-ethers";
 import { configVariable, defineConfig } from "hardhat/config";
+import { fileURLToPath } from "url";
+import path from "path";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [hardhatToolboxMochaEthersPlugin],
+  paths: {
+    sources: path.join(__dirname, "contracts"),
+    artifacts: path.join(__dirname, "../artifacts"),
+    cache: path.join(__dirname, "../cache"),
+  },
   solidity: {
     profiles: {
       default: {

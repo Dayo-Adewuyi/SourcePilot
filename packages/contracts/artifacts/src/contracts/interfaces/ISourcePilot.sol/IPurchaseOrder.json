@@ -1,0 +1,74 @@
+{
+  "_format": "hh3-artifact-1",
+  "contractName": "IPurchaseOrder",
+  "sourceName": "src/contracts/interfaces/ISourcePilot.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "OnlyEscrow",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "TokenNotFound",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "dealId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "buyer",
+          "type": "address"
+        }
+      ],
+      "name": "PurchaseOrderMinted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum DealStatus",
+          "name": "status",
+          "type": "uint8"
+        }
+      ],
+      "name": "PurchaseOrderStatusUpdated",
+      "type": "event"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {},
+  "immutableReferences": {},
+  "inputSourceName": "project/src/contracts/interfaces/ISourcePilot.sol",
+  "buildInfoId": "solc-0_8_28-71bdb74f37453cf3b1e0c8aa5368e5ae83852c35"
+}
