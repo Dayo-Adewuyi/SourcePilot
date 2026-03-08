@@ -1,4 +1,5 @@
 import hardhatToolboxMochaEthersPlugin from "@nomicfoundation/hardhat-toolbox-mocha-ethers";
+import hardhatVerify from "@nomicfoundation/hardhat-verify";
 import { defineConfig } from "hardhat/config";
 import { fileURLToPath } from "url";
 import path from "path";
@@ -9,7 +10,34 @@ dotenv.config({ path: path.join(path.dirname(fileURLToPath(import.meta.url)), ".
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  plugins: [hardhatToolboxMochaEthersPlugin],
+  plugins: [hardhatToolboxMochaEthersPlugin, hardhatVerify],
+  verify: {
+    etherscan: {
+      apiKey: process.env.BASESCAN_API_KEY ?? "",
+    },
+  },
+  chainDescriptors: {
+    84532: {
+      name: "baseSepolia",
+      blockExplorers: {
+        etherscan: {
+          name: "Base Sepolia Basescan",
+          url: "https://sepolia.basescan.org",
+          apiUrl: "https://api.etherscan.io/v2/api",
+        },
+      },
+    },
+    8453: {
+      name: "base",
+      blockExplorers: {
+        etherscan: {
+          name: "Base Basescan",
+          url: "https://basescan.org",
+          apiUrl: "https://api.etherscan.io/v2/api",
+        },
+      },
+    },
+  },
   paths: {
     sources: path.join(__dirname, "contracts"),
     artifacts: path.join(__dirname, "../artifacts"),

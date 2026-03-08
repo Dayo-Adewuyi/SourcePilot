@@ -7,11 +7,12 @@
     "compile": "hardhat compile --config src/hardhat.config.ts",
     "test": "hardhat test --config src/hardhat.config.ts",
     "deploy:local": "hardhat ignition deploy ignition/modules/SourcePilot.ts --network hardhatLocal --config src/hardhat.config.ts",
-    "deploy:testnet": "hardhat ignition deploy ignition/modules/SourcePilot.ts --network baseSepolia --config src/hardhat.config.ts --parameters ignition/params.json",
+    "deploy:testnet": "hardhat ignition deploy ignition/modules/SourcePilot.ts --network baseSepolia --config src/hardhat.config.ts --parameters ignition/params.json --verify",
     "deploy:mainnet": "hardhat ignition deploy ignition/modules/SourcePilot.ts --network base --config src/hardhat.config.ts --parameters ignition/params.json --verify"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox-mocha-ethers": "^3.0.3",
+    "@nomicfoundation/hardhat-verify": "^3.0.12",
     "@nomicfoundation/ignition-core": "^3.0.9",
     "dotenv": "^16.0.0",
     "hardhat": "^3.1.11"
