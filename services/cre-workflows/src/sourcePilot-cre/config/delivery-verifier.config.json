@@ -1,9 +1,9 @@
 {
   "schedule": "0 0 */6 * * *",
   "trackingApiUrl": "https://api.shipengine.com/v1",
-  "escrowVaultAddress": "0x0000000000000000000000000000000000000000",
-  "purchaseOrderAddress": "0x0000000000000000000000000000000000000000",
-  "agentRegistryAddress": "0x0000000000000000000000000000000000000000",
+    "escrowVaultAddress": "0xA7062Cf765Da227a7Cc246A63A2122410699536D",
+  "purchaseOrderAddress": "0xa3Ae14B2D3c6e5963e76ae9eC674Cb8635319d7a",
+  "agentRegistryAddress": "0xfa318CDc59Df92c2dFC889649c426F4DB48f5dF1",
   "maxDealsPerScan": 20,
   "evm": {
     "chainSelectorName": "base-testnet-sepolia",

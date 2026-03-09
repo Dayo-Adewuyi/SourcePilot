@@ -6,7 +6,7 @@
   "agentRegistryAddress": "0xfa318CDc59Df92c2dFC889649c426F4DB48f5dF1",
   "logisticsApiUrl": "https://api.shipengine.com/v1",
   "evm": {
-    "chainSelectorName": "base-testnet-sepolia",
+    "chainSelectorName": "ethereum-testnet-sepolia-base-1",
     "isTestnet": true
   }
 }
