@@ -56,6 +56,27 @@ app.get("/agents/:id", async (request, reply) => {
   return reply.send(result.rows[0]);
 });
 
+app.get("/agents", async (request, reply) => {
+  const activeParam = (request.query as { active?: string }).active;
+  const active =
+    activeParam === undefined
+      ? undefined
+      : activeParam === "true"
+      ? true
+      : activeParam === "false"
+      ? false
+      : undefined;
+
+  const result = await pool.query(
+    active === undefined
+      ? `SELECT id, name, config, active, created_at, updated_at FROM agent_configs ORDER BY updated_at DESC LIMIT 50`
+      : `SELECT id, name, config, active, created_at, updated_at FROM agent_configs WHERE active = $1 ORDER BY updated_at DESC LIMIT 50`,
+    active === undefined ? [] : [active]
+  );
+
+  return reply.send({ agents: result.rows });
+});
+
 app.put("/agents/:id", async (request, reply) => {
   const id = (request.params as { id: string }).id;
   const parsed = updateAgentSchema.safeParse({ ...(request.body as object), id });

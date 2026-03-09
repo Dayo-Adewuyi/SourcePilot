@@ -3,7 +3,11 @@
   "compilerOptions": {
     "jsx": "preserve",
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "noEmit": true
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
