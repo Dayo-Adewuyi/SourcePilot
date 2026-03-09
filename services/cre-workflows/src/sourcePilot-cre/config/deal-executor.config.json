@@ -1,0 +1,12 @@
+{
+  "scraperBaseUrl": "http://localhost:4080",
+  "aiServiceUrl": "http://localhost:4090",
+  "escrowVaultAddress": "0x0000000000000000000000000000000000000000",
+  "purchaseOrderAddress": "0x0000000000000000000000000000000000000000",
+  "agentRegistryAddress": "0x0000000000000000000000000000000000000000",
+  "logisticsApiUrl": "https://api.shipengine.com/v1",
+  "evm": {
+    "chainSelectorName": "base-testnet-sepolia",
+    "isTestnet": true
+  }
+}

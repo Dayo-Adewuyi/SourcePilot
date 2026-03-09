@@ -1,0 +1,13 @@
+{
+  "schedule": "0 */30 * * * *",
+  "scraperBaseUrl": "http://localhost:4080",
+  "aiServiceUrl": "http://localhost:4090",
+  "priceOracleAddress": "0x0000000000000000000000000000000000000000",
+  "agentRegistryAddress": "0x0000000000000000000000000000000000000000",
+  "maxProductsPerScan": 5,
+  "maxEntriesPerProduct": 5,
+  "evm": {
+    "chainSelectorName": "base-testnet-sepolia",
+    "isTestnet": true
+  }
+}

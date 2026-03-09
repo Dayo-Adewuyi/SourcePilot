@@ -1,13 +1,23 @@
 {
   "name": "@sourcepilot/cre-workflows",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "node --watch src/index.ts",
+    "dev": "tsx watch src/index.ts",
     "build": "tsc -p tsconfig.json",
     "lint": "eslint .",
     "test": "vitest",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "@chainlink/cre-sdk": "^1.1.4",
+    "viem": "^2.47.0",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^2.0.0"
+  }
 }
